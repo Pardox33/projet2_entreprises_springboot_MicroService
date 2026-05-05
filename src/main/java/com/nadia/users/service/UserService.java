@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.nadia.users.entities.Role;
 import com.nadia.users.entities.User;
+import com.nadia.users.service.register.RegistrationRequest;
 
 
 public interface UserService {
@@ -12,4 +13,6 @@ public interface UserService {
 	Role addRole(Role role);
 	User addRoleToUser(String username, String rolename);
 	List<User>findAllUsers();
+	User registerUser(RegistrationRequest request);
+	User validateToken(String code); 
 }

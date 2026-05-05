@@ -40,14 +40,21 @@ public class SecurityConfig {
                 }
             }))
             .authorizeHttpRequests(requests -> requests
-                    .requestMatchers("/login").permitAll()
-                    .requestMatchers("/user/**").permitAll()
-                    .requestMatchers("/api/all/**").hasAnyAuthority("ADMIN", "USER")
-                    .requestMatchers(HttpMethod.GET, "/api/getbyid/**").hasAnyAuthority("ADMIN", "USER")
-                    .requestMatchers(HttpMethod.POST, "/api/addent/**").hasAuthority("ADMIN")
-                    .requestMatchers(HttpMethod.PUT, "/api/updateent/**").hasAuthority("ADMIN")
-                    .requestMatchers(HttpMethod.DELETE, "/api/delent/**").hasAuthority("ADMIN")
-                    .anyRequest().authenticated())
+            	    .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+            	    .requestMatchers("/login").permitAll()
+            	    
+            	    .requestMatchers("/register").permitAll()  
+            	    
+            	    .requestMatchers("/verifyEmail/**").permitAll()
+            	    
+            	    .requestMatchers("/api/all/**").hasAnyAuthority("ADMIN", "USER")
+            	    
+            	    .requestMatchers(HttpMethod.GET, "/api/getbyid/**").hasAnyAuthority("ADMIN", "USER")
+            	    .requestMatchers(HttpMethod.POST, "/api/addent/**").hasAuthority("ADMIN")
+            	    .requestMatchers(HttpMethod.PUT, "/api/updateent/**").hasAuthority("ADMIN")
+            	    .requestMatchers(HttpMethod.DELETE, "/api/delent/**").hasAuthority("ADMIN")
+            	    .anyRequest().authenticated()
+            	)
             .addFilterBefore(new JWTAuthenticationFilter(authMgr), // ✅ added
                     UsernamePasswordAuthenticationFilter.class)
             .addFilterAfter(new JWTAuthorizationFilter(),
